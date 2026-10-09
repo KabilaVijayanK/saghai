@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Eyebrow, CheckList, QuoteLink, factory, vessels } from '@/components/site/shared';
-import { pageHead } from '@/lib/engineering';
+import { manufacturingCapabilities, pageHead } from '@/lib/engineering';
 
 /* ------------------------------------------------------------------ */
 /* Motion primitives                                                   */
@@ -124,7 +124,7 @@ export function Snapshot() {
           {stats.map((s) => (
             <Item key={s.label} className="border-b border-r border-border p-6 md:p-8">
               <div className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-                {s.raw ? s.to : <Counter to={s.to} suffix={s.suffix} />}
+                {s.raw ? s.to : <Counter to={s.to} {...(s.suffix !== undefined ? { suffix: s.suffix } : {})} />}
               </div>
               <DrawLine className="my-4 w-10" />
               <p className="text-sm text-muted-foreground">{s.label}</p>
@@ -201,16 +201,15 @@ export function CoreServices() {
 /* ------------------------------------------------------------------ */
 /* 05 Manufacturing capabilities                                       */
 /* ------------------------------------------------------------------ */
-const capabilities = [
-  { icon: Gauge, t: 'Hydraulic Pressing', d: 'Hydraulic pressing capability with documented capacity up to 600 tonnes.' },
-  { icon: Scissors, t: 'CNC Laser Cutting', d: 'Current laser cutting capability from 0.7 mm to 20 mm.' },
-  { icon: Flame, t: 'CNC Oxyfuel Cutting', d: 'Documented oxyfuel cutting capability up to 150 mm.' },
-  { icon: Layers, t: 'Plate Forming', d: 'Current bending requirement/capability from 3 mm to 50 mm.' },
-  { icon: Wrench, t: 'Welding Processes', d: 'FCAW, GMAW, SMAW and GTAW.' },
-  { icon: Paintbrush, t: 'Blasting & Painting', d: 'In-house blasting and painting capability.' },
-  { icon: ScanSearch, t: 'Inspection & Testing', d: 'Ultrasonic Testing, Liquid Penetrant Testing, Radiography and Hydrostatic Testing.' },
-  { icon: Boxes, t: 'Material Experience', d: 'Documented capability across Mild Steel, Stainless Steel and Aluminium.' },
-];
+const capabilityIcons = {
+  'Hydraulic Pressing': Gauge,
+  'CNC Laser Cutting': Scissors,
+  'CNC Oxyfuel Cutting': Flame,
+  'Plate Forming / Bending': Layers,
+  Welding: Wrench,
+  'Blasting & Painting': Paintbrush,
+  'Inspection & Testing': ScanSearch,
+} as const;
 
 export function Capabilities() {
   return (
@@ -219,13 +218,21 @@ export function Capabilities() {
       <div className="site-container relative">
         <Heading n="04" eyebrow="Manufacturing capabilities" title="Industrial infrastructure for demanding requirements." intro="Saghai Engineering combines fabrication infrastructure, forming equipment, cutting capabilities, welding processes, finishing and inspection facilities to support custom-engineered manufacturing requirements." />
         <Stagger className="grid grid-cols-1 border-l border-t border-border bg-background min-[480px]:grid-cols-2 lg:grid-cols-4">
-          {capabilities.map((c) => (
-            <Item key={c.t} className="border-b border-r border-border p-6 transition-colors hover:bg-muted/40">
-              <c.icon className="mb-5 text-primary" size={24} strokeWidth={1.5} />
-              <h3 className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest">{c.t}</h3>
-              <p className="text-sm text-muted-foreground">{c.d}</p>
-            </Item>
-          ))}
+          {manufacturingCapabilities.map((capability) => {
+            const Icon = capabilityIcons[capability.name];
+            return (
+              <Item key={capability.name} className="border-b border-r border-border p-6 transition-colors hover:bg-muted/40">
+                <Icon className="mb-5 text-primary" size={24} strokeWidth={1.5} />
+                <h3 className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest">{capability.name}</h3>
+                <p className="text-sm text-muted-foreground">{capability.description}</p>
+              </Item>
+            );
+          })}
+          <Item className="border-b border-r border-border p-6 transition-colors hover:bg-muted/40">
+            <Boxes className="mb-5 text-primary" size={24} strokeWidth={1.5} />
+            <h3 className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest">Material Experience</h3>
+            <p className="text-sm text-muted-foreground">Documented capability across Mild Steel, Stainless Steel and Aluminium.</p>
+          </Item>
         </Stagger>
       </div>
     </section>
@@ -270,7 +277,7 @@ export function Products() {
   return (
     <section className="section">
       <div className="site-container">
-        <Heading eyebrow="Engineered products" title="Products developed around real industrial applications." intro="Saghai Engineering manufactures custom-engineered products and fabricated components according to customer requirements."
+        <Heading n="" eyebrow="Engineered products" title="Products developed around real industrial applications." intro="Saghai Engineering manufactures custom-engineered products and fabricated components according to customer requirements."
           action={<Link to="/products" className="text-link">Explore All Products<ArrowRight size={17} /></Link>} />
 
        <Reveal className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -425,6 +432,8 @@ const projects = [
 export function ProjectExperience() {
   const [active, setActive] = useState(0);
   const p = projects[active];
+  if (!p) return null;
+
   return (
     <section className="section">
       <div className="site-container">

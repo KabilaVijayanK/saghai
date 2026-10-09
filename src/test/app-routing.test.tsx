@@ -14,4 +14,13 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("matches the About page and builds its capabilities anchor", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    const capabilitiesLocation = router.buildLocation({ to: "/about", hash: "capabilities" });
+
+    expect(router.matchRoutes("/about").at(-1)?.routeId).toBe("/about");
+    expect(capabilitiesLocation.pathname).toBe("/about");
+    expect(capabilitiesLocation.hash).toBe("capabilities");
+  });
 });

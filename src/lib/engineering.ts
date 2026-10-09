@@ -1,4 +1,20 @@
-export const capabilities = { laser: { min: 0.7, max: 20 }, bending: { min: 3, max: 50 }, pressing: 600, oxyfuel: 150, facilityArea: 30000, bays: 3 };
+export const capabilities = { established: 1978, laser: { min: 0.7, max: 20 }, bending: { min: 3, max: 50 }, pressing: 600, oxyfuel: 150, facilityArea: 30000, bays: 3 };
+export const testingMethods = ['Ultrasonic Testing', 'Liquid Penetrant Testing', 'Radiography', 'Hydrostatic Testing'] as const;
+export const globalMarkets = [
+ { name: 'Saudi Arabia', description: 'Custom-engineered products and fabricated components for industrial and engineering requirements.' },
+ { name: 'Middle East', description: 'Industrial fabrication requirements across process, engineering and manufacturing applications.' },
+ { name: 'Europe', description: 'Custom-engineered fabricated products for industrial buyers and engineering applications.' },
+ { name: 'Latin America', description: 'Fabricated components and engineered products for industrial requirements.' },
+] as const;
+export const manufacturingCapabilities = [
+ { name: 'Hydraulic Pressing', description: `Hydraulic pressing capability with documented capacity up to ${capabilities.pressing} tonnes.` },
+ { name: 'CNC Laser Cutting', description: `Current laser cutting capability from ${capabilities.laser.min} mm to ${capabilities.laser.max} mm.` },
+ { name: 'CNC Oxyfuel Cutting', description: `Documented oxyfuel cutting capability up to ${capabilities.oxyfuel} mm.` },
+ { name: 'Plate Forming / Bending', description: `Current bending requirement/capability from ${capabilities.bending.min} mm to ${capabilities.bending.max} mm.` },
+ { name: 'Welding', description: 'FCAW, GMAW, SMAW and GTAW processes.' },
+ { name: 'Blasting & Painting', description: 'In-house blasting and painting capability.' },
+ { name: 'Inspection & Testing', description: 'Ultrasonic Testing, Liquid Penetrant Testing, Radiography and Hydrostatic Testing.' },
+] as const;
 export const services = [
  { slug: 'laser-cutting', name: 'Laser Cutting', tagline: 'Precision CNC Laser Cutting for Industrial Components', description: 'Precision CNC laser cutting for industrial components and custom fabrication requirements.', range: '0.7–20 mm', applications: ['Industrial components', 'Sheet metal components', 'Fabricated parts', 'Engineering components', 'Custom-cut profiles'], cta: 'Send Your Drawing' },
  { slug: 'bending', name: 'Bending', tagline: 'Industrial Plate Bending for Fabricated Components', description: 'Industrial plate bending for components and fabricated products requiring controlled forming and accurate geometry.', range: '3–50 mm', applications: ['Industrial components', 'Fabricated structures', 'Tank components', 'Engineering components', 'Custom-formed parts'], cta: 'Discuss Your Bending Requirement' },
@@ -22,7 +38,7 @@ export const industries = [
  ['Defense', 'Custom fabricated components for specialized applications.'],
  ['Marine', 'Fabricated structures and components for marine applications.'],
  ['Manufacturing', 'Custom engineered products and fabricated components for manufacturing applications.'],
-];
+] as const;
 export const projects = [
  { name: 'Chemical Storage Vessel', category: 'Process equipment', details: ['Material: SA516', 'Approximate weight: 8 tonnes', 'Jacketed vessel with inner and outer tanks'] },
  { name: 'SS304 Process Vessel', category: 'Process equipment', details: ['Application: Chemical plant', 'Material: SS304', '2,000 mm diameter × 9,000 mm long'] },
