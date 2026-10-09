@@ -1,10 +1,30 @@
 export const capabilities = { established: 1978, laser: { min: 0.7, max: 20 }, bending: { min: 3, max: 50 }, pressing: 600, oxyfuel: 150, facilityArea: 30000, bays: 3 };
 export const testingMethods = ['Ultrasonic Testing', 'Liquid Penetrant Testing', 'Radiography', 'Hydrostatic Testing'] as const;
 export const globalMarkets = [
- { name: 'Saudi Arabia', description: 'Custom-engineered products and fabricated components for industrial and engineering requirements.' },
- { name: 'Middle East', description: 'Industrial fabrication requirements across process, engineering and manufacturing applications.' },
- { name: 'Europe', description: 'Custom-engineered fabricated products for industrial buyers and engineering applications.' },
- { name: 'Latin America', description: 'Fabricated components and engineered products for industrial requirements.' },
+  {
+    name: 'Saudi Arabia',
+    description: 'Custom-engineered products and fabricated components for industrial and engineering requirements.',
+    image: 'https://plus.unsplash.com/premium_photo-1697729914552-368899dc4757?q=80&w=1112&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    imageAlt: 'Industrial facility in the Saudi Arabian desert',
+  },
+  {
+    name: 'Middle East',
+    description: 'Industrial fabrication requirements across process, engineering and manufacturing applications.',
+    image: 'https://images.unsplash.com/photo-1546412414-8035e1776c9a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    imageAlt: 'Oil and gas processing plant at dusk',
+  },
+  {
+    name: 'Europe',
+    description: 'Custom-engineered fabricated products for industrial buyers and engineering applications.',
+    image: 'https://images.unsplash.com/photo-1503917988258-f87a78e3c995?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    imageAlt: 'European industrial manufacturing plant',
+  },
+  {
+    name: 'Latin America',
+    description: 'Fabricated components and engineered products for industrial requirements.',
+    image: 'https://plus.unsplash.com/premium_photo-1754255005956-4e6f83c5a9ff?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    imageAlt: 'Industrial port with cargo cranes',
+  },
 ] as const;
 export const manufacturingCapabilities = [
  { name: 'Hydraulic Pressing', description: `Hydraulic pressing capability with documented capacity up to ${capabilities.pressing} tonnes.` },
