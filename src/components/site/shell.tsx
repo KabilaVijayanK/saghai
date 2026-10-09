@@ -123,8 +123,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
                 <Link to="/services/$service" params={{ service: "bending" }}>
                   Bending
                 </Link>
-                <Link to="/services/$service" params={{ service: "compression-dish-end" }}>
-                  Compression Dish End
+                <Link to="/products">
+                  Compression Dish Ends
                 </Link>
                 <Link to="/products">Engineered Products</Link>
                 <Link to="/industries">Industries We Serve</Link>

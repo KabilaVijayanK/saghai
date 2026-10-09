@@ -38,7 +38,6 @@ export const manufacturingCapabilities = [
 export const services = [
  { slug: 'laser-cutting', name: 'Laser Cutting', tagline: 'Precision CNC Laser Cutting for Industrial Components', description: 'Precision CNC laser cutting for industrial components and custom fabrication requirements.', range: '0.7–20 mm', applications: ['Industrial components', 'Sheet metal components', 'Fabricated parts', 'Engineering components', 'Custom-cut profiles'], cta: 'Send Your Drawing' },
  { slug: 'bending', name: 'Bending', tagline: 'Industrial Plate Bending for Fabricated Components', description: 'Industrial plate bending for components and fabricated products requiring controlled forming and accurate geometry.', range: '3–50 mm', applications: ['Industrial components', 'Fabricated structures', 'Tank components', 'Engineering components', 'Custom-formed parts'], cta: 'Discuss Your Bending Requirement' },
- { slug: 'compression-dish-end', name: 'Compression Dish End', tagline: 'Compression Dish End Manufacturing', description: 'Compression dish end manufacturing for industrial tanks, vessels and other fabricated products requiring formed end components.', range: null, applications: ['Tanks', 'Vessels', 'Industrial equipment', 'Process equipment', 'Custom fabricated products'], cta: 'Send Your Dish End Requirement' },
 ] as const;
 export const products = [
  { name: 'Pressure Vessels', description: 'Fabricated vessels for industrial and process applications.', examples: ['Chemical Storage Vessel', 'Jacketed Vessel', 'Process Plant Vessel', 'SS304 Chemical Plant Vessel'] },
@@ -48,6 +47,7 @@ export const products = [
  { name: 'Industrial Structures', description: 'Custom fabricated structures and components for heavy engineering and industrial applications.', examples: ['Heavy Structures', 'Foundry Equipment Bucket', 'Fabricated Gear Wheel', 'Equipment Supports', 'Lift Pallet Assembly', 'Trommel', 'Butterfly Valve Body'] },
  { name: 'Process Plant Components', description: 'Fabricated components for process plants, including chemical and textile industry applications.', examples: ['Chemical Plant Components', 'Textile Industry Components', 'Process Equipment Components'] },
  { name: 'Sheet Metal Components', description: 'Custom sheet metal components manufactured according to customer requirements.' },
+ { name: 'Compression Dish Ends', description: 'Formed end components for industrial vessels, tanks and engineered equipment, manufactured according to customer drawings and specifications.', examples: ['Industrial vessels', 'Tanks', 'Process equipment', 'Custom fabricated products'] },
 ];
 export const industries = [
  ['Heavy Engineering', 'Custom fabricated components and engineered products for heavy industrial applications.'],

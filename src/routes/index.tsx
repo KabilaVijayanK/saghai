@@ -162,12 +162,11 @@ export function About() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 04 Core services (exactly three)                                    */
+/* 04 Core services (exactly two)                                      */
 /* ------------------------------------------------------------------ */
 const services = [
   { n: '01', icon: Scissors, name: 'Laser Cutting', badge: '0.7 mm – 20 mm', body: 'Precision CNC laser cutting for industrial components and custom fabrication requirements.', extra: 'Suitable for custom-cut profiles, industrial components, sheet metal components and fabricated parts.', cta: 'Explore Laser Cutting' },
   { n: '02', icon: Hammer, name: 'Bending', badge: '3 mm – 50 mm', body: 'Industrial plate bending for components and fabricated products requiring controlled forming and accurate geometry.', extra: 'Suitable for formed components, tank-related components, fabricated structures and engineering requirements.', cta: 'Explore Bending' },
-  { n: '03', icon: Layers, name: 'Compression Dish End', badge: null, body: 'Compression dish end manufacturing for fabricated products requiring formed end components.', extra: 'Used in applications involving tanks, vessels and other industrial fabricated products, depending on project requirements.', cta: 'Explore Compression Dish End' },
 ];
 
 export function CoreServices() {
@@ -176,7 +175,7 @@ export function CoreServices() {
       <div className="site-container relative">
         <Heading n="03" eyebrow="Our services" title="Precision processes for industrial fabrication." intro="Our core fabrication services support component manufacturing and formed products across a range of industrial applications."
           action={<Link to="/services" className="text-link">View All Services<ArrowRight size={17} /></Link>} />
-        <Stagger className="grid gap-6 md:grid-cols-3">
+        <Stagger className="grid gap-6 md:grid-cols-2">
           {services.map((s) => (
             <Item key={s.name} className="group relative flex flex-col border border-border bg-card p-7 transition-colors duration-300 hover:border-primary/50">
               <span aria-hidden className="absolute right-0 top-0 h-6 w-6 border-r border-t border-primary/60" />

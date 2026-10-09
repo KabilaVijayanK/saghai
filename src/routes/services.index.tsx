@@ -12,35 +12,38 @@ import { pageHead } from '@/lib/engineering';
 export const Route = createFileRoute('/services/')({
   head: () =>
     pageHead(
-      'Fabrication Services | Laser Cutting, Bending & Compression Dish End | Saghai Engineering',
-      "Explore Saghai Engineering's precision fabrication services including CNC laser cutting, plate bending and compression dish end manufacturing for industrial applications."
+    'Fabrication Services | Laser Cutting & Bending',
+    "Explore Saghai Engineering's CNC laser cutting and plate bending services for industrial applications."
     ),
   component: Services,
 });
 
-/* ── Images: replace each src with your chosen Unsplash/local asset ── */
-const img = (id: string, w = 1400) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+/* ── Images (Unsplash) ──────────────────────────────────────
+   Paste the full image address of each photo you pick
+   (images.unsplash.com/photo-…). The helper adds size/format params. */
+const unsplash = (url: string, w = 1400) => {
+  const u = new URL(url);
+  u.searchParams.set('auto', 'format');
+  u.searchParams.set('fit', 'crop');
+  u.searchParams.set('w', String(w));
+  u.searchParams.set('q', '80');
+  return u.toString();
+};
 
 const images = {
   hero: {
-    src: img('REPLACE-HERO', 1600),
+    src: unsplash('https://plus.unsplash.com/premium_photo-1664910255137-5462726ff06b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 1600),
     alt: 'Fabricated steel plate components in an industrial workshop',
   },
   laser: {
-    src: img('REPLACE-LASER'),
+    src: unsplash('https://images.unsplash.com/photo-1738162837451-2041c1418f54?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
     alt: 'CNC laser cutting machine cutting a metal plate with bright sparks',
   },
   bending: {
-    src: img('REPLACE-BENDING'),
+    src: unsplash('https://plus.unsplash.com/premium_photo-1682144577628-72dec59f91aa?q=80&w=1153&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
     alt: 'Press brake forming a heavy steel plate in a fabrication shop',
   },
-  dish: {
-    src: img('REPLACE-DISH'),
-    alt: 'Formed steel dish end for an industrial pressure vessel or tank',
-  },
 } as const;
-
 /* ── Data (confirmed scope only) ─────────────────────────── */
 
 const trust = [
@@ -88,25 +91,6 @@ const services = [
       'Industrial component forming',
     ],
     cta: 'Enquire About Bending',
-  },
-  {
-    id: 'compression-dish-end',
-    to: '/services/compression-dish-end',
-    number: '03',
-    title: 'Compression Dish End',
-    short: 'Formed end sections for vessels and tanks.',
-    description:
-      'Compression dish end manufacturing for industrial vessels, tanks and engineered components requiring formed end sections.',
-    spec: { label: 'Manufactured To', value: 'Your drawing & specification' },
-    image: images.dish,
-    points: [
-      'Compression forming',
-      'Custom dimensions',
-      'Drawing/specification-based manufacturing',
-      'Industrial vessel and tank applications',
-      'Component-level manufacturing support',
-    ],
-    cta: 'Enquire About Compression Dish Ends',
   },
 ] as const;
 
@@ -270,13 +254,13 @@ function Services() {
                 <Eyebrow>Our core services</Eyebrow>
                 <h2>Precision processes for demanding industrial applications.</h2>
                 <p className="section-intro">
-                  From precision plate cutting to controlled forming and compression dish end manufacturing, our services are
-                  designed to support custom-engineered components and industrial equipment requirements.
+                  From precision plate cutting to controlled forming, our services support custom-engineered
+                  components and industrial equipment requirements.
                 </p>
               </div>
             </div>
           </FadeIn>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2">
             {services.map((s, i) => (
               <FadeIn key={s.id} delay={i * 0.08}>
                 <Link
@@ -306,7 +290,7 @@ function Services() {
         </div>
       </section>
 
-      {/* 03–05 Detailed services, alternating */}
+      {/* 03–04 Detailed services, alternating */}
       {services.map((s, i) => {
         const flip = i % 2 === 1;
         return (
