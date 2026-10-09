@@ -6,7 +6,7 @@ import laser from '@/assets/laser.jpg';
 import vessels from '@/assets/vessels.jpg';
 import { capabilities, services } from '@/lib/engineering';
 export { factory, laser, vessels };
-export function Brand() { return <Link to="/" className="brand" aria-label="Saghai Engineering home"><svg className="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 3 43 14v20L24 45 5 34V14L24 3Z" stroke="currentColor" strokeWidth="3"/><path d="m33 14-16 0-5 9 20 0-5 11-13 0M34 14l-3 6M15 28l-3 6" stroke="currentColor" strokeWidth="4" strokeLinejoin="miter"/></svg><div><div className="brand-name">SAGHAI</div><div className="brand-sub">ENGINEERING</div></div></Link>; }
+export function Brand() { return <Link to="/" className="brand" aria-label="Saghai Engineering home"><img src="/logo.png" alt="Saghai Engineering" className="brand-logo" width={2172} height={724}/></Link>; }
 export function Eyebrow({children}:{children:React.ReactNode}) { return <div className="eyebrow">{children}</div>; }
 export function QuoteLink({ children = 'Get a Quote', inverse = false }:{children?:React.ReactNode;inverse?:boolean}) { return <Button asChild variant={inverse ? 'inverse':'default'} size="lg"><Link to="/contact">{children}<ArrowRight size={16}/></Link></Button>; }
 export function PageBanner({title,description,category='Company'}:{title:string;description:string;category?:string}) { return <section className="page-banner"><div className="site-container"><div className="breadcrumbs"><Link to="/">Home</Link><ChevronRight size={12}/><span>{title}</span></div><Eyebrow>{category}</Eyebrow><h1>{title}</h1><p>{description}</p></div></section>; }

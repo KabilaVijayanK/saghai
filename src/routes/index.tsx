@@ -530,30 +530,6 @@ export function GlobalMarkets() {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* 13 RFQ CTA                                                          */
-/* ------------------------------------------------------------------ */
-export function RfqCta() {
-  return (
-    <section className="section section-soft">
-      <div className="site-container">
-        <Reveal className="relative overflow-hidden border border-border bg-background p-8 text-center md:p-16">
-          <Blueprint />
-          <div className="relative mx-auto max-w-2xl">
-            <Settings2 className="mx-auto mb-5 text-primary" size={28} strokeWidth={1.5} />
-            <h2>Have a drawing or fabrication requirement?</h2>
-            <p className="section-intro mx-auto">Share your drawing, specifications or project requirements with our team. We can review your requirement and understand the right fabrication approach for your application.</p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row [&>*]:w-full sm:[&>*]:w-auto">
-              <QuoteLink />
-              <Button asChild variant="outline" size="lg"><Link to="/contact">Contact Saghai Engineering</Link></Button>
-            </div>
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Custom requirements · Industrial applications · Engineering-focused manufacturing</p>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* 14 Final contact CTA                                                */
@@ -623,7 +599,7 @@ function Home() {
       <ProjectExperience />
       <Quality />
       <GlobalMarkets />
-      <RfqCta />
+      
       <FinalCta />
     </>
   );
