@@ -41,12 +41,12 @@ export const services = [
  { slug: 'compression-dish-end', name: 'Compression Dish End', tagline: 'Compression Dish End Manufacturing', description: 'Compression dish end manufacturing for industrial tanks, vessels and other fabricated products requiring formed end components.', range: null, applications: ['Tanks', 'Vessels', 'Industrial equipment', 'Process equipment', 'Custom fabricated products'], cta: 'Send Your Dish End Requirement' },
 ] as const;
 export const products = [
- { name: 'Pressure Vessels', description: 'Fabricated vessels for industrial and process applications, including jacketed vessels and chemical storage vessels.' },
- { name: 'Storage Tanks', description: 'Industrial tanks fabricated according to application requirements, including chemical storage tanks, RO water treatment tanks and large-capacity tanks.' },
+ { name: 'Pressure Vessels', description: 'Fabricated vessels for industrial and process applications.', examples: ['Chemical Storage Vessel', 'Jacketed Vessel', 'Process Plant Vessel', 'SS304 Chemical Plant Vessel'] },
+ { name: 'Storage Tanks', description: 'Industrial tanks fabricated according to application requirements.', examples: ['Air Receiver Tanks', 'Storage Tanks', 'Chemical Storage Tanks', 'RO Water Treatment Tanks', 'Water Sprinkler Tanks', 'Tank & Cone Structures'] },
  { name: 'Heat Exchangers', description: 'Custom-engineered fabricated products for industrial process applications.' },
- { name: 'Earthmoving Equipment Components', description: 'Heavy fabricated components including dozer axle housings, motor grader drawbars, front axle components, dozer C-frames, dozer blades and equipment chassis.' },
- { name: 'Industrial Structures', description: 'Custom fabricated structures and components for heavy engineering and industrial applications.' },
- { name: 'Process Plant Components', description: 'Fabricated components for process plants, including applications in chemical and textile industries.' },
+ { name: 'Earthmoving Equipment Components', description: 'Heavy fabricated components for earthmoving and construction equipment applications.', examples: ['Dozer Axle Housing', 'Motor Grader Drawbar', 'Dozer Blade', 'Front Axle for Motor Graders', 'C-Frame for Dozer', 'Chassis for Dozer', 'Drilling Chassis / Platform'] },
+ { name: 'Industrial Structures', description: 'Custom fabricated structures and components for heavy engineering and industrial applications.', examples: ['Heavy Structures', 'Foundry Equipment Bucket', 'Fabricated Gear Wheel', 'Equipment Supports', 'Lift Pallet Assembly', 'Trommel', 'Butterfly Valve Body'] },
+ { name: 'Process Plant Components', description: 'Fabricated components for process plants, including chemical and textile industry applications.', examples: ['Chemical Plant Components', 'Textile Industry Components', 'Process Equipment Components'] },
  { name: 'Sheet Metal Components', description: 'Custom sheet metal components manufactured according to customer requirements.' },
 ];
 export const industries = [

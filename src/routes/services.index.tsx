@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
-import { PageBanner, Eyebrow, QuoteLink, CTA } from '@/components/site/shared';
+import {
+  ArrowRight, ArrowUpRight, Check, Anchor, Cog, Construction,
+  Droplets, Factory, FlaskConical, Shirt, ShieldCheck,
+} from 'lucide-react';
+import { Eyebrow, QuoteLink, CTA } from '@/components/site/shared';
 import { Button } from '@/components/ui/button';
 import { pageHead } from '@/lib/engineering';
 
@@ -13,6 +17,29 @@ export const Route = createFileRoute('/services/')({
     ),
   component: Services,
 });
+
+/* ── Images: replace each src with your chosen Unsplash/local asset ── */
+const img = (id: string, w = 1400) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+const images = {
+  hero: {
+    src: img('REPLACE-HERO', 1600),
+    alt: 'Fabricated steel plate components in an industrial workshop',
+  },
+  laser: {
+    src: img('REPLACE-LASER'),
+    alt: 'CNC laser cutting machine cutting a metal plate with bright sparks',
+  },
+  bending: {
+    src: img('REPLACE-BENDING'),
+    alt: 'Press brake forming a heavy steel plate in a fabrication shop',
+  },
+  dish: {
+    src: img('REPLACE-DISH'),
+    alt: 'Formed steel dish end for an industrial pressure vessel or tank',
+  },
+} as const;
 
 /* ── Data (confirmed scope only) ─────────────────────────── */
 
@@ -29,9 +56,11 @@ const services = [
     to: '/services/laser-cutting',
     number: '01',
     title: 'Laser Cutting',
+    short: 'Precision CNC plate cutting to your drawings.',
     description:
       'Precision CNC laser cutting for industrial and engineering components, produced according to customer drawings and dimensional requirements.',
     spec: { label: 'Cutting Thickness', value: '0.7 – 20 mm' },
+    image: images.laser,
     points: [
       'CNC laser cutting',
       'Precision profile cutting',
@@ -46,9 +75,11 @@ const services = [
     to: '/services/bending',
     number: '02',
     title: 'Bending',
+    short: 'Controlled plate forming to required geometry.',
     description:
       'Controlled plate bending for forming industrial components according to required dimensions, geometry and engineering specifications.',
     spec: { label: 'Bending Thickness', value: '3 – 50 mm' },
+    image: images.bending,
     points: [
       'Plate bending',
       'Custom forming',
@@ -63,9 +94,11 @@ const services = [
     to: '/services/compression-dish-end',
     number: '03',
     title: 'Compression Dish End',
+    short: 'Formed end sections for vessels and tanks.',
     description:
       'Compression dish end manufacturing for industrial vessels, tanks and engineered components requiring formed end sections.',
     spec: { label: 'Manufactured To', value: 'Your drawing & specification' },
+    image: images.dish,
     points: [
       'Compression forming',
       'Custom dimensions',
@@ -94,27 +127,21 @@ const reasons = [
 ];
 
 const applications = [
-  { name: 'Heavy Engineering', text: 'Fabricated components for heavy engineering equipment.' },
-  { name: 'Chemical', text: 'Formed and cut parts for chemical process equipment.' },
-  { name: 'Textile', text: 'Custom components for textile machinery and plants.' },
-  { name: 'Construction Equipment', text: 'Plate components for construction machinery.' },
-  { name: 'Water Treatment', text: 'Components for water treatment systems and tanks.' },
-  { name: 'Manufacturing', text: 'Custom parts supporting manufacturing operations.' },
-  { name: 'Defense', text: 'Fabricated components for defense-related requirements.' },
-  { name: 'Marine', text: 'Plate components for marine applications.' },
+  { name: 'Heavy Engineering', text: 'Fabricated components for heavy engineering equipment.', Icon: Factory },
+  { name: 'Chemical', text: 'Formed and cut parts for chemical process equipment.', Icon: FlaskConical },
+  { name: 'Textile', text: 'Custom components for textile machinery and plants.', Icon: Shirt },
+  { name: 'Construction Equipment', text: 'Plate components for construction machinery.', Icon: Construction },
+  { name: 'Water Treatment', text: 'Components for water treatment systems and tanks.', Icon: Droplets },
+  { name: 'Manufacturing', text: 'Custom parts supporting manufacturing operations.', Icon: Cog },
+  { name: 'Defense', text: 'Fabricated components for defense-related requirements.', Icon: ShieldCheck },
+  { name: 'Marine', text: 'Plate components for marine applications.', Icon: Anchor },
 ];
 
-/* ── Motion helper ───────────────────────────────────────── */
+/* ── Helpers ─────────────────────────────────────────────── */
 
 function FadeIn({
-  children,
-  className,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
+  children, className, delay = 0,
+}: { children: React.ReactNode; className?: string; delay?: number }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
@@ -129,19 +156,102 @@ function FadeIn({
   );
 }
 
+/** Image with a blueprint-grid fallback so a bad URL never looks broken. */
+function Photo({
+  src, alt, className = '', priority = false,
+}: { src: string; alt: string; className?: string; priority?: boolean }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        role="img"
+        aria-label={alt}
+        className={`bg-muted ${className}`}
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px)',
+          backgroundSize: '32px 32px',
+        }}
+      />
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      onError={() => setFailed(true)}
+      className={className}
+    />
+  );
+}
+
 /* ── Page ────────────────────────────────────────────────── */
 
 function Services() {
   return (
     <>
-      {/* 01 Banner + trust row */}
-      <PageBanner
-        title="Fabrication Services Built Around Your Requirements"
-        category="Precision fabrication services"
-        description="Saghai Engineering provides specialized fabrication services for industrial and engineering applications, developed around customer drawings, specifications and material requirements."
-      />
-      <div className="border-b border-border bg-card">
-        <ul className="site-container grid grid-cols-2 gap-x-6 gap-y-3 py-5 text-sm font-medium md:grid-cols-4">
+      {/* 01 Hero */}
+      <section className="relative overflow-hidden border-b border-border bg-background">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.5]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+        <div className="site-container relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <FadeIn>
+            <Eyebrow>Precision fabrication services</Eyebrow>
+            <h1 className="mt-4 text-4xl font-semibold leading-[1.05] md:text-6xl">
+              Fabrication Services Built Around Your Requirements
+            </h1>
+            <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+              Saghai Engineering provides specialized fabrication services for industrial and engineering applications,
+              developed around customer drawings, specifications and material requirements.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <QuoteLink>Request a Quote</QuoteLink>
+              <Button asChild variant="outline">
+                <a href="#core-services">
+                  Explore Services <ArrowRight aria-hidden size={16} className="ml-2" />
+                </a>
+              </Button>
+            </div>
+          </FadeIn>
+
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+          >
+            <span aria-hidden className="absolute -bottom-4 -right-4 hidden h-full w-full border border-primary/40 md:block" />
+            <div className="relative overflow-hidden border border-border bg-card">
+              <Photo
+                src={images.hero.src}
+                alt={images.hero.alt}
+                priority
+                className="aspect-[4/5] w-full object-cover md:aspect-[5/5]"
+              />
+            </div>
+            {/* floating spec chips */}
+            <div className="absolute -left-4 bottom-8 hidden border border-border bg-card px-5 py-4 shadow-sm md:block">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Laser cutting</p>
+              <p className="text-xl font-semibold text-primary">0.7 – 20 mm</p>
+            </div>
+            <div className="absolute -right-2 top-8 hidden border border-border bg-card px-5 py-4 shadow-sm md:block">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Bending</p>
+              <p className="text-xl font-semibold text-primary">3 – 50 mm</p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* trust row */}
+        <ul className="site-container relative grid grid-cols-2 gap-x-6 gap-y-3 border-t border-border py-5 text-sm font-medium md:grid-cols-4">
           {trust.map((t) => (
             <li key={t} className="flex items-center gap-2">
               <Check aria-hidden size={16} className="shrink-0 text-primary" />
@@ -149,10 +259,10 @@ function Services() {
             </li>
           ))}
         </ul>
-      </div>
+      </section>
 
-      {/* 02 Overview */}
-      <section className="section">
+      {/* 02 Overview with image cards */}
+      <section className="section scroll-mt-24" id="core-services">
         <div className="site-container">
           <FadeIn>
             <div className="section-heading">
@@ -166,20 +276,29 @@ function Services() {
               </div>
             </div>
           </FadeIn>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-3">
             {services.map((s, i) => (
               <FadeIn key={s.id} delay={i * 0.08}>
                 <Link
                   to={s.to}
-                  className="group flex h-full flex-col border border-border bg-card p-8 transition-all hover:-translate-y-0.5 hover:border-primary/60"
+                  className="group flex h-full flex-col overflow-hidden border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-primary/60"
                 >
-                  <span className="mb-6 text-sm font-semibold tracking-widest text-primary">{s.number}</span>
-                  <h3 className="mb-3 text-2xl font-semibold">{s.title}</h3>
-                  <p className="mb-6 text-sm text-muted-foreground">{s.description}</p>
-                  <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold">
-                    View service
-                    <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-1" />
-                  </span>
+                  <div className="overflow-hidden">
+                    <Photo
+                      src={s.image.src}
+                      alt={s.image.alt}
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-7">
+                    <span className="mb-3 text-sm font-semibold tracking-widest text-primary">{s.number}</span>
+                    <h3 className="mb-2 text-2xl font-semibold">{s.title}</h3>
+                    <p className="mb-6 text-sm text-muted-foreground">{s.short}</p>
+                    <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold">
+                      View service
+                      <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
                 </Link>
               </FadeIn>
             ))}
@@ -191,11 +310,7 @@ function Services() {
       {services.map((s, i) => {
         const flip = i % 2 === 1;
         return (
-          <section
-            key={s.id}
-            id={s.id}
-            className={`section scroll-mt-24 ${flip ? 'bg-muted/40' : ''}`}
-          >
+          <section key={s.id} id={s.id} className={`section scroll-mt-24 ${flip ? 'bg-muted/40' : ''}`}>
             <div className="site-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <FadeIn className={flip ? 'lg:order-2' : ''}>
                 <span className="mb-4 block text-sm font-semibold tracking-widest text-primary">{s.number}</span>
@@ -219,20 +334,27 @@ function Services() {
                 </div>
               </FadeIn>
 
-              {/* Spec panel (swap for an existing project image later if available) */}
               <FadeIn delay={0.1} className={flip ? 'lg:order-1' : ''}>
-                <div className="relative overflow-hidden border border-border bg-card p-10 md:p-14">
+                <div className="group relative">
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute -right-4 -top-8 select-none text-[10rem] font-bold leading-none text-primary/5"
-                  >
-                    {s.number}
-                  </span>
-                  <p className="relative mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    {s.spec.label}
-                  </p>
-                  <p className="relative text-4xl font-semibold text-primary md:text-5xl">{s.spec.value}</p>
-                  <span aria-hidden className="relative mt-6 block h-px w-16 bg-primary" />
+                    className={`absolute hidden h-full w-full border border-primary/40 md:block ${
+                      flip ? '-bottom-4 -left-4' : '-bottom-4 -right-4'
+                    }`}
+                  />
+                  <div className="relative overflow-hidden border border-border bg-card">
+                    <Photo
+                      src={s.image.src}
+                      alt={s.image.alt}
+                      className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute bottom-0 left-0 max-w-[80%] border-r border-t border-border bg-card/95 px-6 py-4">
+                      <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                        {s.spec.label}
+                      </p>
+                      <p className="text-xl font-semibold text-primary md:text-2xl">{s.spec.value}</p>
+                    </div>
+                  </div>
                 </div>
               </FadeIn>
             </div>
@@ -255,13 +377,15 @@ function Services() {
             {steps.map((s, i) => (
               <motion.li
                 key={s.n}
-                className="bg-card p-8"
+                className="group bg-card p-8 transition-colors hover:bg-muted/40"
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.45, delay: i * 0.08 }}
               >
-                <span className="mb-6 block text-5xl font-semibold text-primary/30">{s.n}</span>
+                <span className="mb-6 block text-5xl font-semibold text-primary/30 transition-colors group-hover:text-primary">
+                  {s.n}
+                </span>
                 <h3 className="mb-2 text-lg font-semibold">{s.title}</h3>
                 <p className="text-sm text-muted-foreground">{s.text}</p>
               </motion.li>
@@ -279,7 +403,7 @@ function Services() {
             <p className="mt-4 max-w-md text-muted-foreground">
               Every service is built around your drawings, materials and requirements.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4 text-sm font-semibold">
+            <div className="mt-8 flex flex-wrap gap-6 text-sm font-semibold">
               <Link to="/capabilities" className="inline-flex items-center gap-1 hover:text-primary">
                 Capabilities <ArrowUpRight aria-hidden size={16} />
               </Link>
@@ -291,7 +415,8 @@ function Services() {
           <div className="grid gap-4 sm:grid-cols-2">
             {reasons.map((r, i) => (
               <FadeIn key={r.title} delay={(i % 2) * 0.08}>
-                <article className="h-full border border-border bg-card p-6 transition-colors hover:border-primary/60">
+                <article className="h-full border border-border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-primary/60">
+                  <span aria-hidden className="mb-4 block h-px w-8 bg-primary" />
                   <h3 className="mb-2 font-semibold">{r.title}</h3>
                   <p className="text-sm text-muted-foreground">{r.text}</p>
                 </article>
@@ -320,11 +445,17 @@ function Services() {
             </div>
           </FadeIn>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {applications.map((a, i) => (
-              <FadeIn key={a.name} delay={(i % 4) * 0.06}>
-                <article className="h-full border border-border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-primary/60">
-                  <h3 className="mb-2 font-semibold">{a.name}</h3>
-                  <p className="text-sm text-muted-foreground">{a.text}</p>
+            {applications.map(({ name, text, Icon }, i) => (
+              <FadeIn key={name} delay={(i % 4) * 0.06}>
+                <article className="group h-full border border-border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-primary/60">
+                  <Icon
+                    aria-hidden
+                    size={30}
+                    strokeWidth={1.25}
+                    className="mb-5 text-primary transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <h3 className="mb-2 font-semibold">{name}</h3>
+                  <p className="text-sm text-muted-foreground">{text}</p>
                 </article>
               </FadeIn>
             ))}
